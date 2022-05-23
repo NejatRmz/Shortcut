@@ -41,7 +41,7 @@ class HomeFragment : Fragment() {
     ): View? {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        homeFragmentAdapter = HomeFragmentAdapter(arrayListOf())
+        homeFragmentAdapter = HomeFragmentAdapter(arrayListOf(), homeViewModel)
         comicItemList = arrayListOf()
 
         val root: View = binding.root

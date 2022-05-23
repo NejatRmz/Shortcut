@@ -16,7 +16,7 @@ import com.example.shortcut.data.model.ComicItem
 import com.example.shortcut.databinding.ComicItemBinding
 
 
-class HomeFragmentAdapter(private val list: ArrayList<ComicItem>) :
+class HomeFragmentAdapter(private val list: ArrayList<ComicItem>, private  val viewModel: HomeViewModel) :
     RecyclerView.Adapter<HomeFragmentAdapter.ViewHolder>() {
 
     private val TAG = "HomeFragmentAdapter"
@@ -84,7 +84,8 @@ class HomeFragmentAdapter(private val list: ArrayList<ComicItem>) :
         }
 
         private fun addToFavorite(comicItem:ComicItem){
-            Log.i(TAG, "Add item to favorites" + comicItem.title)
+            Log.i(TAG, "Add item to favorites " + comicItem.title)
+            viewModel.insertComic(comicItem)
         }
     }
 
