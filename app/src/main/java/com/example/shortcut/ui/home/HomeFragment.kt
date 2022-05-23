@@ -8,9 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.shortcut.R
 import com.example.shortcut.data.model.ComicItem
 import com.example.shortcut.databinding.FragmentHomeBinding
 import com.example.shortcut.network.ComicResource
@@ -72,7 +75,13 @@ class HomeFragment : Fragment() {
             }
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                getComicById(s.toString().toInt())
+
+                try {
+                    getComicById(s.toString().toInt())
+                }catch (e: Exception) {
+                    e.printStackTrace()
+                }
+
             }
 
             override fun afterTextChanged(s: Editable) {}

@@ -73,6 +73,8 @@ class FavoriteFragmentAdapter(private val list: ArrayList<ComicItem>, private  v
 
         private fun removeFromFavorite(comicItem:ComicItem){
             Log.i(TAG, "Add item to favorites " + comicItem.title)
+            viewModel.delete(comicItem)
+            notifyDataSetChanged()
         }
     }
 
