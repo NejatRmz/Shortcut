@@ -36,51 +36,6 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
     }
 
-    private fun observeComicInfo(){
-        comicsViewModel.comicsInfo.observe(this) { data ->
-            when (data.status) {
-                ComicResource.Status.LOADING ->
-                    Log.e(TAG, "loading")
-                ComicResource.Status.SUCCESS -> {
-                    data?.let {
-                        Log.e(TAG, "Success")
-                        data.data?.let { items ->
-                            Log.e(TAG, items.toString())
-                        }
-                    }
-                }
-                ComicResource.Status.ERROR ->
-                    data.message?.let {
-                        Log.e(TAG, "Error")
-                    }
-            }
-        }
-    }
-
-
-
-    private fun observeCurrentComicInfo(){
-        comicsViewModel.currentComicsInfo.observe(this) { data ->
-            when (data.status) {
-                ComicResource.Status.LOADING ->
-                    Log.e(TAG, "loading")
-                ComicResource.Status.SUCCESS -> {
-                    data?.let {
-                        Log.e(TAG, "Success")
-                        data.data?.let { items ->
-                            Log.e(TAG, items.toString())
-                        }
-                    }
-                }
-                ComicResource.Status.ERROR ->
-                    data.message?.let {
-                        Log.e(TAG, "Error")
-                    }
-            }
-        }
-    }
-
-
     companion object {
         private const val TAG = "MainActivity"
     }

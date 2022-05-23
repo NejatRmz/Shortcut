@@ -1,7 +1,9 @@
 package com.example.shortcut.ui.home
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.shortcut.R
 import com.example.shortcut.data.model.ComicItem
 import com.example.shortcut.data.remote.repository.comics.ComicsCardRepositoryImpl
 import com.example.shortcut.local.IComicRepository
@@ -18,6 +20,13 @@ class HomeViewModel @Inject constructor(
     private val repository: IComicRepository
 
 ) : BaseViewModel() {
+
+
+
+    private val _text = MutableLiveData<String>().apply {
+
+    }
+    val text: LiveData<String> = _text
 
     lateinit var _comicInfo : LiveData<ComicResource<ComicItem>>
     lateinit var _currentComicInfo : LiveData<ComicResource<ComicItem>>

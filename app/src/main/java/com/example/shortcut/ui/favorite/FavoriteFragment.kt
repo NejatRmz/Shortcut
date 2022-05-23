@@ -4,25 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.shortcut.data.model.ComicItem
 import com.example.shortcut.databinding.FragmentFavoriteBinding
-import com.example.shortcut.utils.autoCleared
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class FavoriteFragment : Fragment() {
 
     private val favoriteViewModel: FavoriteViewModel by viewModels()
-    private lateinit var listAdapter: FavoriteFragmentAdapter
+    private lateinit var favoriteFragmentAdapter: FavoriteFragmentAdapter
 
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
@@ -36,7 +30,7 @@ class FavoriteFragment : Fragment() {
         allComics = mutableListOf()
         _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
         binding.rvComics.layoutManager = LinearLayoutManager(requireContext())
-        listAdapter = FavoriteFragmentAdapter(arrayListOf(), favoriteViewModel)
+        favoriteFragmentAdapter = FavoriteFragmentAdapter(arrayListOf(), favoriteViewModel)
 
         return binding.root
     }
@@ -44,13 +38,14 @@ class FavoriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initRecyclerView()
         setupViewModel()
         observerLiveData()
     }
 
     private fun initRecyclerView() {
-        binding.rvComics.adapter = listAdapter
+        binding.rvComics.adapter = favoriteFragmentAdapter
     }
 
     private fun setupViewModel() {
@@ -62,9 +57,16 @@ class FavoriteFragment : Fragment() {
         favoriteViewModel.getAllComics().observe(viewLifecycleOwner, Observer { listOfComics ->
             listOfComics?.let {
                 allComics = it
-                listAdapter.updateDataList(allComics)
+                favoriteFragmentAdapter.updateDataList(allComics)
             }
         })
+        if (allComics.isEmpty()){
+            binding.textFavorite.visibility = View.VISIBLE
+            binding.rvComics.visibility = View.GONE
+        }else{
+            binding.textFavorite.visibility = View.GONE
+            binding.rvComics.visibility = View.VISIBLE
+        }
     }
 
 }

@@ -7,16 +7,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shortcut.R
 import com.example.shortcut.data.model.ComicItem
 import com.example.shortcut.databinding.FragmentHomeBinding
 import com.example.shortcut.network.ComicResource
+import com.example.shortcut.utils.Constants
 import com.example.shortcut.utils.PaginationScrollListener
 import com.example.shortcut.utils.autoCleared
 import dagger.hilt.android.AndroidEntryPoint
@@ -58,6 +61,17 @@ class HomeFragment : Fragment() {
         binding.rvComics.layoutManager = LinearLayoutManager(requireContext())
         binding.rvComics.adapter = homeFragmentAdapter
 
+        if (context?.let { Constants.isNetworkAvailable(it) } == true) {
+            binding.textHome.visibility = View.GONE
+            binding.search.visibility = View.VISIBLE
+            binding.rvComics.visibility = View.VISIBLE
+        } else {
+            homeViewModel.text.observe(viewLifecycleOwner, Observer {
+                binding.textHome.visibility = View.VISIBLE
+                binding.search.visibility = View.GONE
+                binding.rvComics.visibility = View.GONE
+            })
+        }
         getCurrentComic()
         searchById()
 //        for (i in 0 until pageNum){
