@@ -31,13 +31,12 @@ class HomeFragment : Fragment() {
     private var binding: FragmentHomeBinding by autoCleared()
     private lateinit var homeFragmentAdapter: HomeFragmentAdapter
 
-    private lateinit var comicItemList : ArrayList<ComicItem>
+    private lateinit var comicItemList: ArrayList<ComicItem>
 
     var isLoadingFlag = false
     var isLastPageFlag = false
     private var pageNum = 10
     private var count = 1
-
 
 
     override fun onCreateView(
@@ -73,17 +72,19 @@ class HomeFragment : Fragment() {
             })
         }
         getCurrentComic()
+        getComicById(2)
+        getComicById(3)
+        getComicById(4)
+        getComicById(5)
+        getComicById(6)
+        getComicById(7)
+        getComicById(8)
+        getComicById(9)
         searchById()
-//        for (i in 0 until pageNum){
-//            getComicById(i)
-//        }
-
-        //recyclerViewScrollListener()
-
     }
 
 
-    private fun searchById(){
+    private fun searchById() {
         binding.search.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
             }
@@ -92,7 +93,7 @@ class HomeFragment : Fragment() {
 
                 try {
                     getComicById(s.toString().toInt())
-                }catch (e: Exception) {
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
 
@@ -106,12 +107,12 @@ class HomeFragment : Fragment() {
     /**
      * This method listen scroll and load more data when scroll reach end.
      */
-    private fun recyclerViewScrollListener(){
+    private fun recyclerViewScrollListener() {
         binding.rvComics!!.addOnScrollListener(object :
             PaginationScrollListener(binding.rvComics.layoutManager as LinearLayoutManager) {
             override fun loadMoreItems() {
                 isLoadingFlag = true
-                pageNum+=10
+                pageNum += 10
                 getMoreItems(pageNum)
             }
 
@@ -123,17 +124,17 @@ class HomeFragment : Fragment() {
     }
 
 
-    fun getMoreItems(pageNum : Int) {
+    fun getMoreItems(pageNum: Int) {
 
         Toast.makeText(context, "Load More Items", Toast.LENGTH_SHORT).show()
         isLoadingFlag = false
-        for(i in pageNum until pageNum*10)
-        {
+        for (i in pageNum until pageNum * 10) {
             getComicById(i)
         }
         homeFragmentAdapter.addData(comicItemList)
     }
-    private fun getCurrentComic(){
+
+    private fun getCurrentComic() {
         homeViewModel.getCurrentComic().observe(viewLifecycleOwner) { data ->
             when (data.status) {
                 ComicResource.Status.LOADING ->
@@ -157,7 +158,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun getComicById(id:Int){
+    private fun getComicById(id: Int) {
         isLoadingFlag = false
         Log.e(TAG, "item: $id")
         homeViewModel.getComicById(id).observe(viewLifecycleOwner) { data ->

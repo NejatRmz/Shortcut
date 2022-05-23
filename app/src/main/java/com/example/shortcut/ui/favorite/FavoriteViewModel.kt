@@ -34,7 +34,7 @@ class FavoriteViewModel @Inject constructor(
     }
 
     fun getAllComics(): LiveData<List<ComicItem>> {
-        Log.e("DEBUG", "View model getallnotes")
+        Log.e("DEBUG", "View model getallcomics")
         return repository.getAllComics()
     }
 }

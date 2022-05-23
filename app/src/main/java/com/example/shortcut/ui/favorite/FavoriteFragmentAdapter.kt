@@ -14,14 +14,20 @@ import com.example.shortcut.databinding.ComicItemBinding
 import com.example.shortcut.ui.home.HomeViewModel
 
 
-class FavoriteFragmentAdapter(private val list: ArrayList<ComicItem>, private  val viewModel: FavoriteViewModel) :
+class FavoriteFragmentAdapter(
+    private val list: ArrayList<ComicItem>,
+    private val viewModel: FavoriteViewModel
+) :
     RecyclerView.Adapter<FavoriteFragmentAdapter.ViewHolder>() {
 
     private val TAG = "HomeFragmentAdapter"
 
     private lateinit var binding: ComicItemBinding
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteFragmentAdapter.ViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): FavoriteFragmentAdapter.ViewHolder {
         binding =
             ComicItemBinding.inflate(LayoutInflater.from(parent.context), parent, false);
         return ViewHolder(binding)
@@ -43,9 +49,9 @@ class FavoriteFragmentAdapter(private val list: ArrayList<ComicItem>, private  v
 
     inner class ViewHolder(binding: ComicItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(comicItem: ComicItem) {
-            setLoadingImage(binding,comicItem.img)
-            binding.title.text =comicItem.num.toString()
-            binding.detail.text =comicItem.alt
+            setLoadingImage(binding, comicItem.img)
+            binding.title.text = comicItem.num.toString()
+            binding.detail.text = comicItem.alt
             binding.favorite.setOnClickListener(View.OnClickListener {
                 //Log.i(TAG, comicItem.title)
                 removeFromFavorite(comicItem)
@@ -57,7 +63,7 @@ class FavoriteFragmentAdapter(private val list: ArrayList<ComicItem>, private  v
                 try {
                     val bundle = bundleOf("comic" to comicItem)
                     binding.root.findNavController().navigate(R.id.navigation_comic_detail, bundle)
-                }catch (e: Exception) {
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
 
@@ -65,13 +71,13 @@ class FavoriteFragmentAdapter(private val list: ArrayList<ComicItem>, private  v
 
         }
 
-        private fun setLoadingImage(comicItemBinding: ComicItemBinding, url : String) {
+        private fun setLoadingImage(comicItemBinding: ComicItemBinding, url: String) {
             Glide.with(comicItemBinding.root)
                 .load(url)
                 .into(comicItemBinding.imageView)
         }
 
-        private fun removeFromFavorite(comicItem:ComicItem){
+        private fun removeFromFavorite(comicItem: ComicItem) {
             Log.i(TAG, "Add item to favorites " + comicItem.title)
             viewModel.delete(comicItem)
             notifyDataSetChanged()

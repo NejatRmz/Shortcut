@@ -60,10 +60,10 @@ class FavoriteFragment : Fragment() {
                 favoriteFragmentAdapter.updateDataList(allComics)
             }
         })
-        if (allComics.isEmpty()){
+        if (allComics.isEmpty()) {
             binding.textFavorite.visibility = View.VISIBLE
             binding.rvComics.visibility = View.GONE
-        }else{
+        } else {
             binding.textFavorite.visibility = View.GONE
             binding.rvComics.visibility = View.VISIBLE
         }
