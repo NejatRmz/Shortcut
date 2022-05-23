@@ -38,7 +38,6 @@ class FavoriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initRecyclerView()
         setupViewModel()
         observerLiveData()
@@ -58,15 +57,16 @@ class FavoriteFragment : Fragment() {
             listOfComics?.let {
                 allComics = it
                 favoriteFragmentAdapter.updateDataList(allComics)
+
+                if (allComics.isEmpty()) {
+                    binding.textFavorite.visibility = View.VISIBLE
+                    binding.rvComics.visibility = View.GONE
+                } else {
+                    binding.textFavorite.visibility = View.GONE
+                    binding.rvComics.visibility = View.VISIBLE
+                }
             }
         })
-        if (allComics.isEmpty()) {
-            binding.textFavorite.visibility = View.VISIBLE
-            binding.rvComics.visibility = View.GONE
-        } else {
-            binding.textFavorite.visibility = View.GONE
-            binding.rvComics.visibility = View.VISIBLE
-        }
     }
 
 }

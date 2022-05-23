@@ -51,7 +51,6 @@ class FavoriteFragmentAdapter(
         fun bind(comicItem: ComicItem) {
             setLoadingImage(binding, comicItem.img)
             binding.title.text = comicItem.num.toString()
-            binding.detail.text = comicItem.alt
             binding.favorite.setOnClickListener(View.OnClickListener {
                 //Log.i(TAG, comicItem.title)
                 removeFromFavorite(comicItem)

@@ -2,11 +2,13 @@ package com.example.shortcut.ui.home
 
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -56,11 +58,10 @@ class HomeFragmentAdapter(private val list: ArrayList<ComicItem>, private  val v
     inner class ViewHolder(binding: ComicItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(comicItem: ComicItem) {
             setLoadingImage(binding,comicItem.img)
-            binding.title.text =comicItem.num.toString()
-            binding.detail.text =comicItem.alt
+            binding.title.text =comicItem.title.toString()
             binding.favorite.setOnClickListener(View.OnClickListener {
-                //Log.i(TAG, comicItem.title)
                 addToFavorite(comicItem)
+                binding.title.text = "added"
             })
 
             binding.imageView.setOnClickListener {
