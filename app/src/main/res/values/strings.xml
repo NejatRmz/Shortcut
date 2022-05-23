@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Shortcut</string>
+    <string name="title_home">Home</string>
+    <string name="title_favorite">Favorite</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="cancel">Cancel</string>
+    <string name="serach_comic">Serach comic</string>
+    <string name="comic_detail">Comic Detail</string>
+</resources>
