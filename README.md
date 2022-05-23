@@ -8,3 +8,4 @@ Used Technologies:
 * Hilt for dependency Injection
 * Safe Args to pass data between destinations
 * Navigation Component for navigate between fragments
+"# Shortcut" 
